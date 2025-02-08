@@ -3,25 +3,165 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background-custom: 24 57% 1%;
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  .description {
+    @apply !bg-background !text-foreground;
+  }
+  .description span {
+    @apply !bg-background !text-foreground;
+  }
+  .description div {
+    @apply !bg-background !text-foreground;
+  }
+
+  .description div span {
+    @apply !bg-background !text-foreground;
+  }
+
+  .description div span span {
+    @apply !bg-background !text-foreground;
+  }
+  .description h3 {
+    @apply text-base mt-2;
+  }
+  .description h2 {
+    @apply text-lg mt-2;
+  }
+  .description h1 {
+    @apply text-xl mt-2;
+  }
+  .description p {
+    @apply text-sm mt-2;
+  }
+  .description ul {
+    @apply list-disc mt-2;
+  }
+  .description ol {
+    @apply list-decimal mt-2;
+  }
+  .description li {
+    @apply ml-4 text-foreground;
+  }
+}
+
+.rsw-ce ul {
+  list-style: disc;
+  padding-left: 2em;
+}
+
+.rsw-ce ol {
+  list-style: decimal;
+  padding-left: 2em;
+}
+
+.rsw-toolbar {
+  background-color: var(--background-custom);
+}
+
+.rsw-ce h1 {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.rsw-ce h2 {
+  font-size: 1.3rem;
+  line-height: 2.25rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.rsw-ce h3 {
+  font-size: rem;
+  line-height: 2rem;
+  font-weight: 300;
+}
+
+@layer base {
+  :root {
+    --background: 24 52% 99%;
+    --foreground: 24 57% 0%;
+    --muted: 24 25% 89%;
+    --muted-foreground: 24 11% 29%;
+    --popover: 24 52% 98%;
+    --popover-foreground: 0 0% 0%;
+    --card: 24 52% 98%;
+    --card-foreground: 0 0% 0%;
+    --border: 24 12% 91%;
+    --input: 24 12% 91%;
+    --primary: 24 92% 28%;
+    --primary-foreground: 24 92% 88%;
+    --secondary: 24 15% 84%;
+    --secondary-foreground: 24 15% 24%;
+    --accent: 24 15% 84%;
+    --accent-foreground: 24 15% 24%;
+    --destructive: 17 88% 38%;
+    --destructive-foreground: 0 0% 100%;
+    --ring: 24 92% 28%;
+    --chart-1: 24 92% 28%;
+    --chart-2: 24 15% 84%;
+    --chart-3: 24 15% 84%;
+    --chart-4: 24 15% 87%;
+    --chart-5: 24 95% 28%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 24 57% 2%;
+    --foreground: 24 34% 100%;
+    --muted: 24 25% 11%;
+    --muted-foreground: 24 11% 71%;
+    --popover: 24 57% 2%;
+    --popover-foreground: 0 0% 100%;
+    --card: 24 57% 2%;
+    --card-foreground: 0 0% 100%;
+    --border: 24 12% 11%;
+    --input: 24 12% 11%;
+    --primary: 24 92% 28%;
+    --primary-foreground: 24 92% 88%;
+    --secondary: 24 2% 8%;
+    --secondary-foreground: 24 2% 68%;
+    --accent: 24 2% 8%;
+    --accent-foreground: 24 2% 68%;
+    --destructive: 17 88% 56%;
+    --destructive-foreground: 0 0% 0%;
+    --ring: 24 92% 28%;
+    --chart-1: 24 92% 28%;
+    --chart-2: 24 2% 8%;
+    --chart-3: 24 2% 8%;
+    --chart-4: 24 2% 11%;
+    --chart-5: 24 95% 28%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Animasi bintang rating */
+.animate-rating {
+  animation: pulse 0.5s ease-in-out;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
   }
 }
