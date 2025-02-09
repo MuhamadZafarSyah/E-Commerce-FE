@@ -28,7 +28,6 @@ function UpdateProductPage() {
         enabled: !!id,
     });
 
-    console.log(data);
 
 
     return (

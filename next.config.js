@@ -5,19 +5,22 @@ const nextConfig = {
       {
         source: "/api/:path*",
         headers: [
-          { key: "Access-Control-Allow-Credentials", value: "true" },
+          {
+            key: "Access-Control-Allow-Credentials",
+            value: "true",
+          },
           {
             key: "Access-Control-Allow-Origin",
-            value: "http://localhost:8000",
+            value: "https://api-ecommerce.muhamadzafarsyah.com",
           },
           {
             key: "Access-Control-Allow-Methods",
-            value: "GET,DELETE,PATCH,POST,PUT",
+            value: "GET,DELETE,PATCH,POST,PUT,OPTIONS",
           },
           {
             key: "Access-Control-Allow-Headers",
             value:
-              "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version",
+              "Content-Type, Authorization, X-Requested-With, Accept, Origin, X-CSRF-Token",
           },
         ],
       },
@@ -26,9 +29,8 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "http",
-        hostname: "localhost",
-        port: "8000",
+        protocol: "https",
+        hostname: "api-ecommerce.muhamadzafarsyah.com",
         pathname: "/**",
       },
     ],

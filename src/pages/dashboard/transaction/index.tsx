@@ -36,7 +36,6 @@ function AdminTransactionPage() {
         queryFn: async () => {
             const response = await createInstance().get("/orders");
             const data = response.data.data;
-            console.log(data.data);
             return data.data;
         },
     });

@@ -33,7 +33,6 @@ const PaymentSuccess = () => {
     useEffect(() => {
         if (session_id) {
             // Lakukan sesuatu dengan session_id, seperti memverifikasi status pembayaran
-            console.log('Session ID:', session_id);
             setShowConfetti(true)
 
             // Delay hiding confetti to ensure window size is set

@@ -1,7 +1,7 @@
-export function timeAgo(dateString) {
+export function timeAgo(dateString: any) {
   const date = new Date(dateString);
   const now = new Date();
-  const seconds = Math.floor((now - date) / 1000);
+  const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
   const minutes = Math.floor(seconds / 60);
   const hours = Math.floor(minutes / 60);
   const days = Math.floor(hours / 24);
@@ -24,7 +24,7 @@ export function timeAgo(dateString) {
 }
 
 // Contoh penggunaan dengan validasi
-export function formatDateTime(dateString) {
+export function formatDateTime(dateString: any) {
   if (!dateString) return "";
 
   try {

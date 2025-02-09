@@ -8,7 +8,6 @@ import ReviewComponent from "@/components/Reviews/ReviewCard";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { ProductType } from "@/types/product.type";
 import { toRupiah } from "@/utils/toRupiah";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Loader2, ShoppingCart } from "lucide-react";
@@ -17,12 +16,6 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-
-
-type DetailProductPageProps = {
-    product: ProductType;
-    relatedProducts: ProductType[];
-};
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const { slug } = context.params || {};
@@ -107,7 +100,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
 };
 
-function DetailProductPage({ product, relatedProducts }: DetailProductPageProps) {
+function DetailProductPage({ product, relatedProducts }: any) {
     const router = useRouter();
 
     // Handle jika data product null
@@ -261,7 +254,7 @@ function DetailProductPage({ product, relatedProducts }: DetailProductPageProps)
                     <div className="max-w-6xl mx-auto px-2 py-8">
                         <h2 className="text-2xl font-bold mb-6">Related Products</h2>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                            {relatedProducts.map((relatedProduct) => (
+                            {relatedProducts.map((relatedProduct: any) => (
                                 <ProductCard key={relatedProduct.id}
                                     id={relatedProduct.id}
                                     slug={relatedProduct.slug}

@@ -1,8 +1,8 @@
-import instance from "@/axios/instance";
+import createInstance from "@/axios/instance";
 
 export const getUsers = async () => {
   try {
-    const response = await instance.get("/users");
+    const response = await createInstance().get("/users");
     const data = response.data;
     return data.data;
   } catch (error) {

@@ -1,13 +1,12 @@
-import { ProductType } from "@/types/product.type"
-import { toRupiah } from "@/utils/toRupiah"
-import Link from "next/link"
-import { Button } from "./ui/button"
-import { Eye, HeartIcon } from "lucide-react"
-import { useMutation } from "@tanstack/react-query"
 import createInstance from "@/axios/instance"
-import { toast } from "sonner"
-import { Card } from "./ui/card"
+import { toRupiah } from "@/utils/toRupiah"
+import { useMutation } from "@tanstack/react-query"
+import { Eye, HeartIcon } from "lucide-react"
+import Link from "next/link"
 import { useRouter } from "next/router"
+import { toast } from "sonner"
+import { Button } from "./ui/button"
+import { Card } from "./ui/card"
 interface ProductCardProps {
     id: number
     name: string

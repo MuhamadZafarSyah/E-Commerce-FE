@@ -36,8 +36,6 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
     mutationFn: (data: LoginFormData) => createInstance().post("/login", data,),
     onSuccess: (response) => {
 
-      console.log(response);
-
       const user = response.data.data;
       useAuthStore.getState().login(user);
       queryClient.invalidateQueries(["allProducts"]);

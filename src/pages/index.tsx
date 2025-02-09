@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useQuery } from "@tanstack/react-query";
 import { Navbar } from "@/components/Navbar";
 import { ProductCard } from "@/components/ProductCard";
@@ -59,28 +60,28 @@ export default function Home() {
                 <Link href="/all-products" title="" className="inline-flex items-center px-6 py-4 mt-8 font-semibold text-foreground transition-all duration-200  dark:bg-muted dark:text-white rounded-lg sm:mt-16 bg-muted" role="button">
                   Start Shopping
                   <svg className="w-6 h-6 ml-8 -mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </Link>
 
                 <div className="grid p-4 bg-gray-400 md:bg-background rounded-md bg-clip-padding md:bg-opacity-100 backdrop-filter backdrop-blur-sm bg-opacity-10 grid-cols-1 px-12 mt-12 text-left gap-x-12 gap-y-8 sm:grid-cols-3 sm:px-0">
                   <div className="flex items-center">
                     <svg className="flex-shrink-0" width="31" height="25" viewBox="0 0 31 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M25.1667 14.187H20.3333C17.6637 14.187 15.5 16.3507 15.5 19.0203V19.8258C15.5 19.8258 18.0174 20.6314 22.75 20.6314C27.4826 20.6314 30 19.8258 30 19.8258V19.0203C30 16.3507 27.8363 14.187 25.1667 14.187Z" stroke="#28CC9D" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M25.1667 14.187H20.3333C17.6637 14.187 15.5 16.3507 15.5 19.0203V19.8258C15.5 19.8258 18.0174 20.6314 22.75 20.6314C27.4826 20.6314 30 19.8258 30 19.8258V19.0203C30 16.3507 27.8363 14.187 25.1667 14.187Z" stroke="#28CC9D" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                     <p className="ml-3 text-sm text-foreground ">Over 50,000 seamless transactions</p>
                   </div>
 
                   <div className="flex items-center">
                     <svg className="flex-shrink-0" width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M7 12.6667L9.25 15L16 8" stroke="#28CC9D" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M7 12.6667L9.25 15L16 8" stroke="#28CC9D" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                     <p className="ml-3 text-sm text-foreground ">Zero hidden fees, full transparency</p>
                   </div>
 
                   <div className="flex items-center">
                     <svg className="flex-shrink-0" width="20" height="24" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M17 11H3C1.89543 11 1 11.8954 1 13V21C1 22.1046 1.89543 23 3 23H17C18.1046 23 19 22.1046 19 21V13C19 11.8954 18.1046 11 17 11Z" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M17 11H3C1.89543 11 1 11.8954 1 13V21C1 22.1046 1.89543 23 3 23H17C18.1046 23 19 22.1046 19 21V13C19 11.8954 18.1046 11 17 11Z" stroke="white" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                     <p className="ml-3 text-sm text-foreground ">Fast & secure online payments</p>
                   </div>
@@ -111,11 +112,11 @@ export default function Home() {
                   Array.from({ length: 4 }).map((_, index) => (
                     <div key={index} className="border text-card-foreground shadow-sm relative h-full w-full overflow-hidden rounded-lg bg-transparent transition-colors group hover:bg-primary">
                       <div className="flex flex-col space-y-1.5 p-6">
-                        <div className="w-12 h-12 bg-gray-200 animate-pulse rounded-full" />
+                        <div className="w-12 h-12 bg-gray-200 rounded-full" />
                       </div>
                       <div className="p-6 pt-0 space-y-1.5">
-                        <div className="w-24 h-4 bg-gray-200 animate-pulse rounded" />
-                        <div className="w-16 h-4 bg-gray-200 animate-pulse rounded" />
+                        <div className="w-24 h-4 bg-gray-200 rounded" />
+                        <div className="w-16 h-4 bg-gray-200 rounded" />
                       </div>
                     </div>
                   ))
@@ -179,7 +180,7 @@ export default function Home() {
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-4  gap-4  ">
                 {isSuccess ? (
-                  data?.data.map((product: ProductType) => (
+                  data?.data.map((product: any) => (
                     <ProductCard
                       key={product.id}
                       id={product.id}

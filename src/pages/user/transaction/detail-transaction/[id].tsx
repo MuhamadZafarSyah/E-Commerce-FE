@@ -26,7 +26,6 @@ export default function TransactionDetailPage() {
         queryKey: ['orderDetails', id],
         queryFn: async () => {
             const response = await createInstance().get(`/my-orders/${id}`)
-            console.log(response.data.data);
             return response.data.data
         },
         refetchOnWindowFocus: false,

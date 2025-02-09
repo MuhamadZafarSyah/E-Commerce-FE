@@ -27,11 +27,6 @@ export function Navbar() {
     const getUserRole = useAuthStore((state) => state.user) as { role: string };
 
 
-    if (getUserRole) {
-        console.log(getUserRole.role);
-
-    }
-
 
     const mutation = useMutation({
         mutationKey: ["logout"],

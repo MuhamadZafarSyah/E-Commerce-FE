@@ -14,7 +14,6 @@ export default function WishlistPage() {
         queryFn: async () => {
             const response = await createInstance().get("/wishlist");
             const data = response.data.data.data;
-            console.log(data);
 
             return data;
         },

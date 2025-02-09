@@ -40,6 +40,9 @@ const headers = {
 
 import { GetServerSidePropsContext } from "next";
 
+// Flag untuk mengecek apakah sedang dalam proses logout
+const isLoggingOut = false;
+
 const createInstance = (context: GetServerSidePropsContext | null = null) => {
   const instance = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api",
@@ -66,12 +69,15 @@ const createInstance = (context: GetServerSidePropsContext | null = null) => {
         redirectInactiveAccount();
       }
 
-      const Unauthorized =
+      const isUnauthorized =
         error.response?.status === 401 &&
         error.response?.data?.message === "Unauthorized";
-      if (Unauthorized) {
+
+      // Hanya panggil logout jika bukan sedang dalam proses logout
+      if (isUnauthorized && !isLoggingOut) {
         logout();
       }
+
       if (error.response?.status === 401) {
         return Promise.reject("Unauthorized");
       }

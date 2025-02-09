@@ -35,7 +35,7 @@ const InactiveAccount = () => {
                 </CardHeader>
                 <CardContent className="text-center">
                     <p className="md:text-lg text-base">
-                        I'm sorry, your account is inactive. Please contact the administrator if this is a mistake.
+                        I&apos;m sorry, your account is inactive. Please contact the administrator if this is a mistake.
                     </p>
                 </CardContent>
                 <CardFooter>

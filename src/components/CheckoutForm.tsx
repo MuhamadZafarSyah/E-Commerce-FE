@@ -116,7 +116,6 @@ function CheckoutForm({
                 total_amount: shippingDetails.total
             };
 
-            console.log(payload);
 
             await mutateAsync(payload);
         } catch (error) {

@@ -73,7 +73,6 @@ function AdminProductPage() {
         return pages;
     };
 
-    console.log(data);
 
     return (
         <AdminLayout className="w-full flex flex-col md:flex-row">

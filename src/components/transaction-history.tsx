@@ -15,10 +15,10 @@ import { TransactionType } from "@/types/transaction.type"
 import { toRupiah } from "@/utils/toRupiah"
 import { useQuery } from "@tanstack/react-query"
 import { ArrowDownCircle, ArrowUpCircle, Clock, Search, ShoppingBag } from "lucide-react"
-import Link from "next/link"
 import { useRouter } from 'next/router'
 import { useState } from "react"
 import { ScrollArea } from "./ui/scroll-area"
+import Link from "next/link"
 
 export default function TransactionHistory() {
     const router = useRouter()
@@ -200,13 +200,15 @@ export default function TransactionHistory() {
                     )}
                     <DialogFooter>
                         <div className="animate-fade-in-up delay-400 mx-auto">
-                            <Link
-                                href={selectedOrder?.payment_url}
-                                className="inline-flex items-center px-6 py-3 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:scale-105"
-                            >
-                                <ShoppingBag className="mr-2" />
-                                Pay Now
-                            </Link>
+                            {selectedOrder?.payment_url && (
+                                <Link
+                                    href={selectedOrder.payment_url}
+                                    className="inline-flex items-center px-6 py-3 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:scale-105"
+                                >
+                                    <ShoppingBag className="mr-2" />
+                                    Pay Now
+                                </Link>
+                            )}
                         </div>
                     </DialogFooter>
                 </DialogContent>

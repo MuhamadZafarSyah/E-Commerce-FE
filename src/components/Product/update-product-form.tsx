@@ -107,7 +107,6 @@ export default function UpdateProductForm({ product }: UpdateProductFormProps) {
         mutate(formData);
     };
 
-    console.log(product);
 
 
     return (

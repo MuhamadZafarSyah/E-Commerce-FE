@@ -1,17 +1,15 @@
-import { Input } from "@/components/ui/input"
-import { Search } from "lucide-react"
-import { Navbar } from "@/components/Navbar"
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import createInstance from "@/axios/instance"
-import { useQuery } from "@tanstack/react-query"
-import { ProductType } from "@/types/product.type"
-import { useState } from "react"
-import { ProductCard } from "@/components/ProductCard"
-import Head from "next/head"
-import ProductCardSkeleton from "@/components/Skeletons/ProductCardSkeletons"
-import { useRouter } from "next/router"
-import { SearchFilters } from "@/components/SeachFilters"
-import { Pagination } from "@/components/Pagination"
 import Footer from "@/components/Footer"
+import { Navbar } from "@/components/Navbar"
+import { Pagination } from "@/components/Pagination"
+import { ProductCard } from "@/components/ProductCard"
+import { SearchFilters } from "@/components/SeachFilters"
+import ProductCardSkeleton from "@/components/Skeletons/ProductCardSkeletons"
+import { ProductType } from "@/types/product.type"
+import { useQuery } from "@tanstack/react-query"
+import Head from "next/head"
+import { useRouter } from "next/router"
 
 export default function ProductListPage() {
     const router = useRouter()
@@ -40,7 +38,6 @@ export default function ProductListPage() {
             const response = await createInstance().get("/category");
             const data = response.data.data;
 
-            console.log(data.data);
             return data.data;
 
         },
@@ -48,7 +45,6 @@ export default function ProductListPage() {
 
     });
 
-    console.log();
 
     return (
         <>
@@ -79,7 +75,7 @@ export default function ProductListPage() {
                                         <ProductCardSkeleton key={index} />
                                     ))
                                 ) : (
-                                    data?.data.map((product: ProductType) => (
+                                    data?.data.map((product: any) => (
                                         <ProductCard
                                             key={product.id}
                                             id={product.id}
