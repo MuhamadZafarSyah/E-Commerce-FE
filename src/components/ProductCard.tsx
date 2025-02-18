@@ -33,7 +33,7 @@ export function ProductCard({ name, price, image, category, slug, id, is_in_wish
             return response.data;
         },
         onSuccess: () => {
-            router.push("/user/wishlist");
+            // router.push("/user/wishlist");
             toast.success("Product added to wishlist");
         },
         onError: (error: any) => {

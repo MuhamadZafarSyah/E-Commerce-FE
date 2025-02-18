@@ -28,8 +28,8 @@ const formSchema = z.object({
         .instanceof(File)
         .nullable()
         .refine(
-            (file) => file === null || ["image/jpeg", "image/png", "image/gif", "image/jpg", "image/webp"].includes(file.type),
-            "Only .jpg, .jpeg, .png, .webp and .gif formats are supported."
+            (file) => file === null || ["image/jpeg", "image/png", "image/gif", "image/jpg", "image/webp"].includes(file.type) && file.size < 5000000,
+            "Only .jpg, .jpeg, .png, .webp and .gif formats are supported with max size 5MB."
         ),
 });
 

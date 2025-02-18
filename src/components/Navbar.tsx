@@ -195,18 +195,19 @@ export function Navbar() {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        <Link className="hover:text-foreground" href="/user/my-profile">
-                            <DropdownMenuItem>Settings</DropdownMenuItem>
-                        </Link>
                         {getUserRole ? getUserRole.role === "admin" && (
                             <Link className="hover:text-foreground" href="/dashboard">
                                 <DropdownMenuItem>Dashboard</DropdownMenuItem>
                             </Link>
                         ) : null}
-                        <DropdownMenuSeparator />
                         {isAuthenticated ? (
-                            <DropdownMenuItem className="bg-destructive text-background dark:text-foreground" onClick={handleLogout}>Logout</DropdownMenuItem>
+                            <>
+                                <Link className="hover:text-foreground" href="/user/my-profile">
+                                    <DropdownMenuItem>Settings</DropdownMenuItem>
+                                </Link>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem className="bg-destructive text-background dark:text-foreground" onClick={handleLogout}>Logout</DropdownMenuItem>
+                            </>
                         ) : (
                             <Link href="/auth/login">
                                 <DropdownMenuItem className="bg-background text-foreground">Login</DropdownMenuItem>

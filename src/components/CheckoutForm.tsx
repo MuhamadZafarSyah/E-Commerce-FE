@@ -174,7 +174,7 @@ function CheckoutForm({
                     name="phone"
                     control={control}
                     rules={{ required: true }}
-                    render={({ field }) => <Input id="phone" {...field} />}
+                    render={({ field }) => <Input id="phone" type="number" {...field} />}
                 />
             </div>
             <div>

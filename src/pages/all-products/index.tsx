@@ -83,7 +83,7 @@ export default function ProductListPage() {
                                             name={product.name}
                                             price={product.price}
                                             image={product.image}
-                                            category={product.category.name} // Pastikan ini string
+                                            category={product.category.name}
                                             stock={product.stock}
                                         />
                                     ))
@@ -91,7 +91,7 @@ export default function ProductListPage() {
                             </div>
 
                             {isSuccess && data.data.length === 0 && (
-                                <div className="text-center text-gray-500 mt-8">
+                                <div className="text-center min-h-screen text-gray-500 mt-8">
                                     No products found matching your search
                                 </div>
                             )}

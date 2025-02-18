@@ -47,6 +47,18 @@ export function SearchFilters({ categories }: { categories: CategoryType[] }) {
             query: newQuery
         })
     }
+    const handlePriceChange = (value: string, type: 'min' | 'max') => {
+        const cleanValue = value.replace(/[^\d-]/g, '').replace(/-+/g, '-');
+
+        const numValue = parseInt(cleanValue.replace(/-/g, ''), 10);
+        if (isNaN(numValue)) return;
+
+        if (type === 'min') {
+            setLocalMinPrice(cleanValue);
+        } else {
+            setLocalMaxPrice(cleanValue);
+        }
+    };
 
     const handleKeyPress = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') {
@@ -87,18 +99,22 @@ export function SearchFilters({ categories }: { categories: CategoryType[] }) {
 
             <div>
                 <Label>Price Range</Label>
-                <div className="flex gap-2">
+                <div className="flex gap-2 flex-col">
                     <Input
                         placeholder="Min price"
                         type="number"
+                        min="0"
+                        pattern="[0-9]*"
                         value={localMinPrice}
-                        onChange={(e) => setLocalMinPrice(e.target.value)}
+                        onChange={(e) => handlePriceChange(e.target.value, 'min')}
                     />
                     <Input
                         placeholder="Max price"
                         type="number"
+                        min="0"
+                        pattern="[0-9]*"
                         value={localMaxPrice}
-                        onChange={(e) => setLocalMaxPrice(e.target.value)}
+                        onChange={(e) => handlePriceChange(e.target.value, 'max')}
                     />
                 </div>
             </div>
