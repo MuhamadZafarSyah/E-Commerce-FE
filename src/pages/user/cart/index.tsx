@@ -12,6 +12,7 @@ import { ShoppingBag, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import Head from "next/head";
 import Footer from "@/components/Footer";
+import Image from "next/image";
 
 export default function Component() {
     const [totalWeight, setTotalWeight] = useState(0);
@@ -61,7 +62,7 @@ export default function Component() {
                                             className="flex items-center justify-between relative border-b pb-6 transition-colors hover:bg-muted/20 rounded-lg p-4"
                                         >
                                             <div className="flex flex-col md:flex-row md:items-center items-start gap-4">
-                                                <img
+                                                <Image
                                                     src={item.image}
                                                     alt={item.name}
                                                     width={80}

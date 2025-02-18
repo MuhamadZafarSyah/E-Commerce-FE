@@ -27,6 +27,7 @@ import {
 import { toRupiah } from '@/utils/toRupiah';
 import createInstance from '@/axios/instance';
 import ModalDeleteProduct from '@/components/Product/ProductModal/delete-product-modal';
+import Image from 'next/image';
 
 function AdminProductPage() {
     const [searchQuery, setSearchQuery] = useState("");
@@ -94,18 +95,18 @@ function AdminProductPage() {
                 </div>
             </div>
 
-            <ScrollArea className="h-fit w-full md:w-full rounded-md border px-4 pb-5">
+            <ScrollArea className="h-fit w-full rounded-md border px-4 pb-5">
                 <Table>
                     <TableCaption>Data semua produk.</TableCaption>
-                    <TableHeader>
+                    <TableHeader className='whitespace-nowrap'>
                         <TableRow>
-                            <TableHead className="w-[50px]">No.</TableHead>
-                            <TableHead className="w-[200px]">Name</TableHead>
-                            <TableHead className="w-[150px]">Price</TableHead>
-                            <TableHead className="w-[150px]">Image</TableHead>
-                            <TableHead className="w-[150px]">Category</TableHead>
-                            <TableHead className="w-[150px]">Stock</TableHead>
-                            <TableHead className="w-[150px] text-right">Actions</TableHead>
+                            <TableHead className="">No.</TableHead>
+                            <TableHead >Name</TableHead>
+                            <TableHead className="">Price</TableHead>
+                            <TableHead className="">Image</TableHead>
+                            <TableHead className="">Category</TableHead>
+                            <TableHead className="">Stock</TableHead>
+                            <TableHead className="text-right">Actions</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -124,7 +125,9 @@ function AdminProductPage() {
                                     </TableCell>
                                     <TableCell>{toRupiah(product.price)}</TableCell>
                                     <TableCell>
-                                        <img
+                                        <Image
+                                            width={80}
+                                            height={80}
                                             src={product.image}
                                             className="w-20 h-20 object-contain"
                                             alt={product.name}

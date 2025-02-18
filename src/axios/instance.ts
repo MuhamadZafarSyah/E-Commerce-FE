@@ -73,12 +73,12 @@ const createInstance = (context: GetServerSidePropsContext | null = null) => {
         error.response?.status === 401 &&
         error.response?.data?.message === "Unauthorized";
 
-      // Hanya panggil logout jika bukan sedang dalam proses logout
       if (isUnauthorized && !isLoggingOut) {
         logout();
       }
 
       if (error.response?.status === 401) {
+        window.location.href = "/auth/login";
         return Promise.reject("Unauthorized");
       }
       return Promise.reject(error);

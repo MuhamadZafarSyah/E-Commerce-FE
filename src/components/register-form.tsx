@@ -1,18 +1,18 @@
+import createInstance from "@/axios/instance"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { useMutation } from "@tanstack/react-query"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form"
-import { Eye, EyeOff, Loader } from "lucide-react"
-import { useState } from "react"
-import { toast } from "sonner"
-import { useRouter } from "next/navigation"
 import { cn } from "@/lib/utils"
-import { AxiosError } from "axios"
-import Link from "next/link"
 import { RegisterFormData, registerFormSchema } from "@/types/registerForm.type"
-import createInstance from "@/axios/instance"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useMutation } from "@tanstack/react-query"
+import { AxiosError } from "axios"
+import { Eye, EyeOff, Loader2 } from "lucide-react"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { useState } from "react"
+import { useForm } from "react-hook-form"
+import { toast } from "sonner"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form"
 
 interface RegisterFormProps extends React.ComponentPropsWithoutRef<"form"> {
   className?: string;
@@ -164,7 +164,7 @@ export function RegisterForm({ className, ...props }: RegisterFormProps) {
         <Button type="submit" disabled={isLoading} className="w-full">
           {isLoading ? (
             <>
-              <Loader className="mr-2 h-4 w-4 animate-spin" />
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               Logging in...
             </>
           ) : (

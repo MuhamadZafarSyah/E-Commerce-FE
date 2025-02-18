@@ -134,7 +134,6 @@ export function SearchFilters({ categories }: { categories: CategoryType[] }) {
                         variant="ghost"
                         onClick={() => {
                             router.push(router.pathname)
-                            // Reset state lokal
                             setLocalSearch('')
                             setLocalCategory('')
                             setLocalMinPrice('')

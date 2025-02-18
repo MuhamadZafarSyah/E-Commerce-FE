@@ -1,3 +1,5 @@
+import createInstance from "@/axios/instance";
+import { Button } from "@/components/ui/button";
 import {
     Dialog,
     DialogContent,
@@ -7,14 +9,12 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Loader } from "lucide-react";
-import createInstance from "@/axios/instance";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
 
 interface dataCategory {
     name?: string;
@@ -97,7 +97,7 @@ function ModalCreateCategory() {
                     <Button type="submit" form="createCategory" disabled={isLoading}>
                         {isLoading ? (
                             <>
-                                <Loader className="mr-2 h-4 w-4 animate-spin" />
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                                 Loading...</>) : (
                             "Save"
                         )}

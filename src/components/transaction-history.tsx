@@ -19,6 +19,7 @@ import { useRouter } from 'next/router'
 import { useState } from "react"
 import { ScrollArea } from "./ui/scroll-area"
 import Link from "next/link"
+import Image from "next/image"
 
 export default function TransactionHistory() {
     const router = useRouter()
@@ -173,7 +174,9 @@ export default function TransactionHistory() {
                                         {selectedOrder.items.map((item, index) => (
                                             <div key={index} className="border rounded-lg p-2">
                                                 <div className="flex gap-2 md:flex-row flex-col">
-                                                    <img
+                                                    <Image
+                                                        width={96}
+                                                        height={96}
                                                         src={item.product.image}
                                                         alt={item.product.name}
                                                         className="size-24 object-contain rounded-lg"

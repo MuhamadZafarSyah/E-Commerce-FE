@@ -1,19 +1,20 @@
+import createInstance from "@/axios/instance"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { cn } from "@/lib/utils"
+import { useAuthStore } from "@/store/useAuthStore"
 import { LoginFormData, loginFormSchema } from "@/types/loginForm.type"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form"
-import { Eye, EyeOff, Loader } from "lucide-react"
-import { useState } from "react"
-import { toast } from "sonner"
-import { useRouter } from "next/navigation"
-import { cn } from "@/lib/utils"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { AxiosError } from "axios"
+import Cookies from "js-cookie"
+import { Eye, EyeOff, Loader2 } from "lucide-react"
 import Link from "next/link"
-import createInstance from "@/axios/instance"
-import { useAuthStore } from "@/store/useAuthStore"
+import { useRouter } from "next/navigation"
+import { useState } from "react"
+import { useForm } from "react-hook-form"
+import { toast } from "sonner"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form"
 
 interface LoginFormProps extends React.ComponentPropsWithoutRef<"form"> {
   className?: string;
@@ -37,13 +38,16 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
     onSuccess: (response) => {
 
       const user = response.data.data;
+      Cookies.set("token", user.token, { expires: 7, secure: true, sameSite: "None", path: "/" });
+
       useAuthStore.getState().login(user);
       queryClient.invalidateQueries(["allProducts"]);
 
       toast.success("Successfully logged in")
       const callbackUrl = new URLSearchParams(window.location.search).get("callbackUrl");
       const url = callbackUrl ? `/auth/login?callbackUrl=${encodeURIComponent(callbackUrl)}` : "/dashboard";
-      router.push(url)
+      window.location.href = url
+      // router.push(url)
     },
     onError: (error: { response: { status: number }; }) => {
       console.log(error);
@@ -130,7 +134,7 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
         <Button type="submit" disabled={isLoading} className="w-full">
           {isLoading ? (
             <>
-              <Loader className="mr-2 h-4 w-4 animate-spin" />
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               Logging in...
             </>
           ) : (

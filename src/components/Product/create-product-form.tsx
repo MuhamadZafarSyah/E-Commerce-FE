@@ -1,13 +1,7 @@
-import { useState, ChangeEvent, SetStateAction } from "react";
+import createInstance from "@/axios/instance";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { Loader } from "lucide-react";
-import Editor from "react-simple-wysiwyg";
-import Image from "next/image";
 import {
     Select,
     SelectContent,
@@ -15,7 +9,13 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import createInstance from "@/axios/instance";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { Loader2 } from "lucide-react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { ChangeEvent, SetStateAction, useState } from "react";
+import Editor from "react-simple-wysiwyg";
+import { toast } from "sonner";
 import RupiahInput from "../ui/currency-rupiah-input";
 
 export default function CreateProductForm() {
@@ -104,23 +104,23 @@ export default function CreateProductForm() {
     };
 
     return (
-        <div className="p-4 min-w-6xl">
+        <div className=" min-w-6xl overflow-hidden">
             <h1 className="text-2xl font-semibold  mb-2">Create Product</h1>
             <form id="product-form" method="post" onSubmit={onSubmit}>
-                <div className="grid gap-6 mb-6 md:grid-cols-2">
-                    <div className="md:col-span-1 w-fit md:w-full">
+                <div className="md:grid md:gap-6 md:mb-6 md:grid-cols-2 md:space-y-0 space-y-5">
+                    <div className="md:col-span-1 w-full md:w-full">
                         <Label htmlFor="productName">Product Name</Label>
                         <Input name="name" id="productName" placeholder="Enter product name" />
                     </div>
-                    <div className="md:col-span-1 w-fit md:w-full">
+                    <div className="md:col-span-1 w-full md:w-full">
                         <Label htmlFor="price">Price</Label>
                         <RupiahInput name="price" />
                     </div>
-                    <div className="md:col-span-1 w-fit md:w-full">
+                    <div className="md:col-span-1 w-full md:w-full">
                         <Label htmlFor="weight">Weight (gram)</Label>
                         <Input name="weight" id="weight" type="number" placeholder="Enter product weight" />
                     </div>
-                    <div className="md:col-span-1 w-fit md:w-full">
+                    <div className="md:col-span-1 w-full md:w-full">
                         <Label htmlFor="stock">Stock</Label>
                         <Input
                             name="stock"
@@ -130,7 +130,7 @@ export default function CreateProductForm() {
                         />
                     </div>
                     {data && (
-                        <div className="md:col-span-1 w-fit md:w-full">
+                        <div className="md:col-span-1 w-full md:w-full">
                             <Label htmlFor="category">Category</Label>
                             <Select
                                 name="category_id"
@@ -153,7 +153,7 @@ export default function CreateProductForm() {
                     <div className="md:col-span-2">
                         <Label htmlFor="attributes">Attributes</Label>
                         {attributes.map((attribute, index) => (
-                            <div key={index} className="flex items-center gap-2 mb-2">
+                            <div key={index} className="flex md:col-span-1 w-full md:w-full items-center md:flex-row flex-col gap-2 mb-2">
                                 <Input
                                     placeholder="Key"
                                     value={attribute.key}
@@ -185,7 +185,7 @@ export default function CreateProductForm() {
                             id="description"
                             value={html}
                             onChange={onChange}
-                            className="text-black dark:text-white text-foreground"
+                            className="text-black dark:text-white text-foreground w-full"
                             containerProps={{
                                 style: { resize: "vertical", minHeight: "400px" },
                             }}
@@ -200,7 +200,7 @@ export default function CreateProductForm() {
                             name="image"
                             accept="image/*"
                             onChange={handleImageChange}
-                            className="file:mr-4  h-12 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90"
+                            className="file:mr-4   w-full  h-12 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90"
                         />
                     </div>
                     {imagePreview && (
@@ -224,10 +224,10 @@ export default function CreateProductForm() {
                     value={JSON.stringify(attributes)}
                 />
             </form>
-            <Button form="product-form" disabled={isLoading} type="submit" className="w-full">
+            <Button form="product-form" disabled={isLoading} type="submit" className="w-full mt-4">
                 {isLoading ? (
                     <>
-                        <Loader className="mr-2 h-4 w-4 animate-spin" />
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                         Loading...
                     </>
                 ) : (

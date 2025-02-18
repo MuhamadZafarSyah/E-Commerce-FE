@@ -14,6 +14,7 @@ import Head from 'next/head'
 import { Navbar } from '@/components/Navbar'
 import { Star } from 'lucide-react'
 import Footer from '@/components/Footer'
+import Image from 'next/image'
 
 export default function TransactionDetailPage() {
     const router = useRouter()
@@ -103,7 +104,9 @@ export default function TransactionDetailPage() {
                             return (
                                 <div key={item.id} className="border rounded-lg p-6">
                                     <div className="flex gap-4 mb-4 md:flex-row flex-col">
-                                        <img
+                                        <Image
+                                            width={144}
+                                            height={144}
                                             src={item.product.image}
                                             alt={item.product.name}
                                             className="size-36 object-contain rounded-lg"

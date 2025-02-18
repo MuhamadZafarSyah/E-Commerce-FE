@@ -179,22 +179,23 @@ export default function Home() {
                 </Link>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-4  gap-4  ">
-                {isSuccess ? (
-                  data?.data.map((product: any) => (
+                {isLoading ? (
+                  Array.from({ length: 8 }).map((_, index) => (
+                    <ProductCardSkeleton key={index} />
+                  ))
+                ) : isSuccess && data?.data ? (
+                  data.data.map((product: any) => (
                     <ProductCard
+                      is_in_wishlist={product.is_in_wishlist}
                       key={product.id}
                       id={product.id}
                       slug={product.slug}
                       name={product.name}
                       price={product.price}
                       image={product.image}
-                      category={product.category.name} // Pastikan ini string
+                      category={product.category?.name} // Pastikan ini string
                       stock={product.stock}
                     />
-                  ))
-                ) : isLoading ? (
-                  Array.from({ length: 8 }).map((_, index) => (
-                    <ProductCardSkeleton key={index} />
                   ))
                 ) : null}
               </div>

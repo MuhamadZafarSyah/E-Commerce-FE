@@ -7,6 +7,7 @@ import { toRupiah } from "@/utils/toRupiah";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import createInstance from "@/axios/instance";
 import { toast } from "sonner";
+import Image from "next/image";
 
 export interface WishlistItem {
     id: number;
@@ -62,7 +63,7 @@ export default function WishlistCard({ item }: WishlistCardProps) {
         <Card className="p-4 w-full md:h-full h-full flex flex-col justify-between  overflow-hidden group relative space-y-4">
             <Card className="group-hover:opacity-90">
                 <Link href={`/detail-product/${item.slug}`}>
-                    <img
+                    <Image
                         className="w-full object-cover rounded-lg aspect-square"
                         src={item.image || "/placeholder.svg"}
                         alt={item.name}

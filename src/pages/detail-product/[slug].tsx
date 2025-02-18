@@ -13,6 +13,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Loader2, ShoppingCart } from "lucide-react";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -26,7 +27,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             return { notFound: true };
         }
 
-        // Fetch main product
         const productResponse = await instance.get(`/products/detail-product/${slug}`);
         const productData = productResponse.data.data;
 
@@ -34,11 +34,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             return { notFound: true };
         }
 
-        // Fetch related products using category_slug from product detail
         const relatedResponse = await instance.get(`/all-products?category=${productData.category_slug}`);
 
 
-        // Filter out the current product and transform related products
         const relatedProducts = relatedResponse.data.data
             .filter((p: any) => p.id !== productData.id)
             .map((p: any) => ({
@@ -47,6 +45,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
                 description: p.description || '',
                 price: p.price,
                 category_id: p.category_id,
+                is_in_wishlist: p.is_in_wishlist,
                 category_name: p.category_name || p.category?.name || '',
                 category_slug: p.category_slug || p.category?.slug || '',
                 image: p.image,
@@ -67,6 +66,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
                     name: productData.name,
                     description: productData.description || '',
                     price: productData.price,
+                    is_in_wishlist: productData.is_in_wishlist,
                     category: productData.category || '',
                     category_id: productData.category_id,
                     category_name: productData.category || '',
@@ -81,7 +81,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
                         total_rating: 0
                     },
                 },
-                relatedProducts: relatedProducts.slice(0, 3) // Get maximum 3 related products
+                relatedProducts: relatedProducts.slice(0, 3)
             },
         };
     } catch (error: any) {
@@ -103,7 +103,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 function DetailProductPage({ product, relatedProducts }: any) {
     const router = useRouter();
 
-    // Handle jika data product null
     if (!product) {
         return (
             <div className="min-h-screen flex items-center justify-center">
@@ -173,7 +172,9 @@ function DetailProductPage({ product, relatedProducts }: any) {
                     <div className="grid gap-3 items-start order-1">
 
                         <Card className="grid p-4 gap-4">
-                            <img
+                            <Image
+                                width={500}
+                                height={500}
                                 src={product.image}
                                 alt="Product Image"
                                 className="aspect-square object-cover border border-gray-500 w-fullz rounded-lg overflow-hidden dark:border-gray-800"
@@ -200,7 +201,7 @@ function DetailProductPage({ product, relatedProducts }: any) {
 
 
                         <form onSubmit={(e) => {
-                            e.preventDefault(); // Pastikan form tidak berpindah halaman
+                            e.preventDefault();
                         }} className="grid gap-4 md:gap-10">
                             <div className="flex flex-col gap-2 min-[400px]:flex-row">
                                 <Button
@@ -218,7 +219,7 @@ function DetailProductPage({ product, relatedProducts }: any) {
                                         </>
                                     )}
                                 </Button>
-                                <AddToWishlistButton id={product.id} />
+                                <AddToWishlistButton is_in_wishlist={product.is_in_wishlist} id={product.id} />
                             </div>
                         </form>
                         <Separator />
@@ -256,6 +257,7 @@ function DetailProductPage({ product, relatedProducts }: any) {
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                             {relatedProducts.map((relatedProduct: any) => (
                                 <ProductCard key={relatedProduct.id}
+                                    is_in_wishlist={relatedProduct.is_in_wishlist}
                                     id={relatedProduct.id}
                                     slug={relatedProduct.slug}
                                     name={relatedProduct.name}

@@ -16,7 +16,7 @@ export function Pagination({ meta }: { meta: any }) {
     return (
         <div className="flex items-center justify-between mt-8">
             <div className="text-sm text-muted-foreground">
-                Showing {meta?.per_page} of {meta?.total} products
+                Showing {meta?.per_page} of {meta?.per_page} products
             </div>
             <div className="flex gap-2">
                 {Array.from({ length: meta?.last_page || 0 }).map((_, index) => {

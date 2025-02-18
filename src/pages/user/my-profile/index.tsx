@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { AlertCircle, Loader } from "lucide-react";
+import { AlertCircle, Loader, Loader2 } from "lucide-react";
 import DropzoneProfilePicture from "@/components/DropzoneProfilePicture";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import createInstance from "@/axios/instance";
@@ -239,7 +239,7 @@ export default function MyProfilePage() {
                                                 className="w-full sm:w-auto"
                                             >
                                                 {isLoading ? (
-                                                    <Loader className="mr-2 h-4 w-4 animate-spin" />
+                                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                                                 ) : "Save Changes"}
                                             </Button>
                                         </div>

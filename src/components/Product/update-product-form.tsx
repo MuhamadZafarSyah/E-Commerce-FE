@@ -1,16 +1,16 @@
-/* eslint-disable @next/next/no-img-element */
-import { useState, ChangeEvent } from "react";
+import createInstance from "@/axios/instance";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { Loader } from "lucide-react";
-import Editor from "react-simple-wysiwyg";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { Loader2 } from "lucide-react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { ChangeEvent, useState } from "react";
+import Editor from "react-simple-wysiwyg";
+import { toast } from "sonner";
 import RupiahInput from "../ui/currency-rupiah-input";
-import createInstance from "@/axios/instance";
 
 interface UpdateProductFormProps {
     product: {
@@ -110,11 +110,11 @@ export default function UpdateProductForm({ product }: UpdateProductFormProps) {
 
 
     return (
-        <div className="p-4 min-w-6xl">
+        <div className="overflow-hidden min-w-6xl">
             <h1 className="text-2xl font-semibold mb-2">Update Product</h1>
             <form id="product-form" method="post" onSubmit={onSubmit}>
-                <div className="grid gap-6 mb-6 md:grid-cols-2">
-                    <div className="md:col-span-1 w-fit md:w-full">
+                <div className="md:grid md:gap-6 md:mb-6 md:grid-cols-2 md:space-y-0 space-y-5">
+                    <div className="md:col-span-1 w-full">
                         <Label htmlFor="productName">Product Name</Label>
                         <Input
                             name="name"
@@ -123,15 +123,15 @@ export default function UpdateProductForm({ product }: UpdateProductFormProps) {
                             placeholder="Enter product name"
                         />
                     </div>
-                    <div className="md:col-span-1 w-fit md:w-full">
+                    <div className="md:col-span-1 w-full">
                         <Label htmlFor="price">Price</Label>
                         <RupiahInput name="price" defaultValue={product.price} />
                     </div>
-                    <div className="md:col-span-1 w-fit md:w-full">
+                    <div className="md:col-span-1 w-full">
                         <Label htmlFor="weight">Weight (gram)</Label>
                         <Input name="weight" id="weight" type="number" defaultValue={product.weight} />
                     </div>
-                    <div className="md:col-span-1 w-fit md:w-full">
+                    <div className="md:col-span-1 w-full">
                         <Label htmlFor="stock">Stock</Label>
                         <Input
                             name="stock"
@@ -142,7 +142,7 @@ export default function UpdateProductForm({ product }: UpdateProductFormProps) {
                         />
                     </div>
                     {categories && (
-                        <div className="md:col-span-1 w-fit md:w-full">
+                        <div className="md:col-span-1 w-full">
                             <Label htmlFor="category">Category</Label>
                             <Select name="category_id">
                                 <SelectTrigger className="w-full">
@@ -161,7 +161,7 @@ export default function UpdateProductForm({ product }: UpdateProductFormProps) {
                     <div className="md:col-span-2">
                         <Label>Attributes</Label>
                         {attributes.map((attribute, index) => (
-                            <div key={index} className="flex items-center gap-2 mb-2">
+                            <div key={index} className="flex md:col-span-1 w-full md:w-full items-center md:flex-row flex-col gap-2 mb-2">
                                 <Input
                                     placeholder="Key"
                                     value={attribute.key}
@@ -191,7 +191,9 @@ export default function UpdateProductForm({ product }: UpdateProductFormProps) {
                     <div className="md:col-span-2 col-span-1">
                         <Label>Current Image</Label>
                         <div className="mt-2 relative aspect-video w-[300px] md:w-full rounded-lg overflow-hidden border border-gray-200 dark:border-gray-800">
-                            <img
+                            <Image
+                                layout="fill"
+                                objectFit="contain"
                                 src={imagePreview || product.image || "/placeholder.svg"}
                                 alt="Product"
                                 className="object-cover w-full h-full"
@@ -224,10 +226,10 @@ export default function UpdateProductForm({ product }: UpdateProductFormProps) {
                     </div>
                 </div>
             </form>
-            <Button form="product-form" disabled={isLoading} type="submit" className="w-full">
+            <Button form="product-form" disabled={isLoading} type="submit" className="w-full mt-4">
                 {isLoading ? (
                     <>
-                        <Loader className="mr-2 h-4 w-4 animate-spin" />
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                         Loading...
                     </>
                 ) : (

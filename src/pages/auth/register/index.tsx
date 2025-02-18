@@ -2,6 +2,7 @@ import ModeToggle from "@/components/ModeToggle"
 import { RegisterForm } from "@/components/register-form"
 import { GalleryVerticalEnd } from "lucide-react"
 import Head from "next/head"
+import Image from "next/image"
 
 import Link from "next/link"
 
@@ -14,7 +15,8 @@ export default function index() {
             </Head>
             <div className="grid min-h-svh lg:grid-cols-2">
                 <div className="relative hidden bg-muted lg:block">
-                    <img
+                    <Image
+                        fill
                         src="/image/login-page.jpg"
                         alt="Image"
                         className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.7]"

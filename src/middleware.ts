@@ -109,6 +109,9 @@ export function middleware(request: NextRequest) {
 
   const token = request.cookies.get("token");
 
+  // Tambahkan pengecekan cookie dari request header
+  const cookieHeader = request.headers.get("cookie");
+
   // Redirect ke login jika mengakses protected path tanpa token
   if (isProtectedPath && !token) {
     const loginUrl = new URL("/auth/login", request.url);
@@ -177,6 +180,7 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
+    "/((?!api|_next/static|_next/image|favicon.ico).*)",
     "/dashboard/:path*",
     "/profile/:path*",
     "/auth/:path*",

@@ -6,7 +6,6 @@ import { Pagination } from "@/components/Pagination"
 import { ProductCard } from "@/components/ProductCard"
 import { SearchFilters } from "@/components/SeachFilters"
 import ProductCardSkeleton from "@/components/Skeletons/ProductCardSkeletons"
-import { ProductType } from "@/types/product.type"
 import { useQuery } from "@tanstack/react-query"
 import Head from "next/head"
 import { useRouter } from "next/router"
@@ -77,6 +76,7 @@ export default function ProductListPage() {
                                 ) : (
                                     data?.data.map((product: any) => (
                                         <ProductCard
+                                            is_in_wishlist={product.is_in_wishlist}
                                             key={product.id}
                                             id={product.id}
                                             slug={product.slug}

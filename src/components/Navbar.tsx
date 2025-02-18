@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import ModeToggle from "./ModeToggle";
 import SearchButton from "./SearchButton";
+import Cookies from "js-cookie"
 
 
 export function Navbar() {
@@ -28,12 +29,49 @@ export function Navbar() {
 
 
 
+    const deleteAllCookies = () => {
+        // Get all cookies
+        const cookies = document.cookie.split(';');
+        const domains = [
+            '',
+            '.muhamadzafarsyah.com',
+            'muhamadzafarsyah.com',
+            'www.muhamadzafarsyah.com',
+            'api-ecommerce.muhamadzafarsyah.com'
+        ];
+        const paths = ['/', ''];
+
+        // Iterate through all cookies
+        for (const cookie of cookies) {
+            const cookieName = cookie.split('=')[0].trim();
+
+            domains.forEach(domain => {
+                paths.forEach(path => {
+                    // Using js-cookie
+                    Cookies.remove(cookieName, {
+                        domain: domain,
+                        path: path
+                    });
+
+                    document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=${path}${domain ? `; domain=${domain}` : ''}`;
+                });
+            });
+        }
+    };
+
     const mutation = useMutation({
         mutationKey: ["logout"],
         mutationFn: () => {
             return createInstance().post("/logout");
         },
         onSuccess: () => {
+            // Hapus semua cookies
+            deleteAllCookies();
+
+            // Clear local storage juga (opsional)
+            localStorage.clear();
+            sessionStorage.clear();
+
             toast.success("Logout Success");
             useAuthStore.getState().logout();
             router.push("/auth/login");

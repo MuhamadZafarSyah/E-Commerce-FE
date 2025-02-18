@@ -1,12 +1,13 @@
 import createInstance from "@/axios/instance"
 import { toRupiah } from "@/utils/toRupiah"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { Eye, HeartIcon } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { toast } from "sonner"
 import { Button } from "./ui/button"
 import { Card } from "./ui/card"
+import Image from "next/image"
 interface ProductCardProps {
     id: number
     name: string
@@ -15,9 +16,10 @@ interface ProductCardProps {
     category: string // Harus string bukan object
     stock: number
     slug: string
+    is_in_wishlist: boolean | null
 }
 
-export function ProductCard({ name, price, image, category, slug, id }: ProductCardProps) {
+export function ProductCard({ name, price, image, category, slug, id, is_in_wishlist }: ProductCardProps) {
 
     const router = useRouter();
 
@@ -48,12 +50,37 @@ export function ProductCard({ name, price, image, category, slug, id }: ProductC
         await mutate();
     };
 
+    const queryClient = useQueryClient();
+
+
+    const { mutate: removeFromWishlist, isLoading: isLoadingRemove } = useMutation({
+        mutationFn: async () => {
+            const instance = createInstance();
+            const response = await instance.delete(`/wishlist/${id}`);
+            return response.data;
+        },
+        onSuccess: () => {
+            toast.success("Product removed from wishlist");
+            queryClient.invalidateQueries({ queryKey: ['allProducts'] });
+
+        },
+        onError: (error: {
+            response: { data: { error: string } }; message: string
+        }) => {
+            toast.error(error.response?.data.error || "Failed to remove product from wishlist");
+        },
+    });
+
+    const handleRemoveFromWishlist = () => {
+        removeFromWishlist();
+    };
+
 
     return (
         <Card key={id} className="p-4 w-full md:h-full h-full flex flex-col justify-between  overflow-hidden group relative space-y-4">
             <Card className="group-hover:opacity-90">
                 <Link href={`/detail-product/${slug}`}>
-                    <img
+                    <Image
                         className="w-full object-cover rounded-lg aspect-square"
                         src={image}
                         width={300}
@@ -75,9 +102,21 @@ export function ProductCard({ name, price, image, category, slug, id }: ProductC
                 <p className="text-lg font-semibold md:hidden">{toRupiah(price)}</p>
             </div>
             <div className="flex gap-4">
-                <Button disabled={isLoading} onClick={handleAddToWishlist} variant="outline" size="icon" className="flex-shrink-0 z-40">
-                    <HeartIcon className="size-4" />
-                </Button>
+
+                {
+                    is_in_wishlist ? (
+                        <Button disabled={isLoadingRemove} onClick={handleRemoveFromWishlist}
+                            variant="outline" size="icon" className="flex-shrink-0 z-40 bg-red-200">
+                            <HeartIcon className="size-4 fill-red-600 text-red-600" />
+                        </Button>
+                    ) : (
+                        <Button disabled={isLoading} onClick={handleAddToWishlist} variant="outline" size="icon" className="flex-shrink-0 z-40">
+                            <HeartIcon className="size-4" />
+                        </Button>
+
+                    )
+                }
+
                 <Link className="w-full" href={`/detail-product/${slug}`}>
                     <Button variant="default" className="w-full">
                         <Eye className="size-4 me-1" /> Detail Product
