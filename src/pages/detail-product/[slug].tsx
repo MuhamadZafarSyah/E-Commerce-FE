@@ -8,6 +8,7 @@ import ReviewComponent from "@/components/Reviews/ReviewCard";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { Skeleton } from "@/components/ui/skeleton"; // Import Skeleton component
 import { toRupiah } from "@/utils/toRupiah";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Loader2, ShoppingCart } from "lucide-react";
@@ -100,27 +101,112 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
 };
 
-function DetailProductPage({ product, relatedProducts }: any) {
-    const router = useRouter();
+// Product skeleton loading component
+const ProductSkeleton = () => {
+    return (
+        <div className="grid md:grid-cols-2 gap-6 lg:gap-12 items-start max-w-6xl px-2 mx-auto py-6 md:pt-14 pt-4">
+            <div className="grid gap-3 items-start order-1">
+                <Card className="grid p-4 gap-4">
+                    <Skeleton className="aspect-square w-full h-[500px] rounded-lg" />
+                    <div className="grid md:hidden">
+                        <Skeleton className="h-10 w-3/4 mb-2" />
+                        <Skeleton className="h-6 w-1/2 mb-2" />
+                        <Skeleton className="h-8 w-1/3 ml-auto" />
+                    </div>
+                </Card>
+            </div>
+            <div className="grid p-4 gap-4 md:gap-10 items-start order-2 md:order-1">
+                <div className="hidden p-4 md:flex flex-col items-start w-full">
+                    <div className="grid gap-4 w-full">
+                        <Skeleton className="h-12 w-3/4" />
+                        <Skeleton className="h-6 w-1/2" />
+                        <Skeleton className="h-6 w-1/3" />
+                    </div>
+                    <Skeleton className="h-10 w-1/3 ml-auto" />
+                </div>
 
-    if (!product) {
-        return (
-            <div className="min-h-screen flex items-center justify-center">
-                <div className="text-center">
-                    <h1 className="text-2xl font-bold mb-4">Product not found or error occurred</h1>
-                    <Button onClick={() => router.push('/')}>Back to Home</Button>
+                <div className="grid gap-4 md:gap-10">
+                    <div className="flex flex-col gap-2 min-[400px]:flex-row">
+                        <Skeleton className="h-12 w-full" />
+                        <Skeleton className="h-12 w-20" />
+                    </div>
+                </div>
+
+                <Separator />
+
+                <div className="grid gap-4">
+                    <Skeleton className="h-20 w-full" />
+                    <Skeleton className="h-20 w-full" />
+                    <Skeleton className="h-10 w-24" />
                 </div>
             </div>
-        );
-    }
+        </div>
+    );
+};
+
+const RelatedProductsSkeleton = () => {
+    return (
+        <div className="max-w-6xl mx-auto px-2 py-8">
+            <Skeleton className="h-10 w-48 mb-6" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {[1, 2, 3, 4].map((i) => (
+                    <div key={i} className="flex flex-col space-y-3">
+                        <Skeleton className="h-48 w-full rounded-lg" />
+                        <Skeleton className="h-6 w-3/4" />
+                        <Skeleton className="h-4 w-1/2" />
+                        <Skeleton className="h-8 w-1/3" />
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};
+
+const ReviewsSkeleton = () => {
+    return (
+        <div className="max-w-6xl mx-auto px-2 py-8">
+            <Skeleton className="h-48 w-full mb-8 rounded-lg" />
+            <div className="space-y-6">
+                {[1, 2, 3].map((i) => (
+                    <div key={i} className="flex flex-col space-y-3 p-4 border rounded-lg">
+                        <div className="flex items-center gap-3">
+                            <Skeleton className="h-12 w-12 rounded-full" />
+                            <div className="space-y-2">
+                                <Skeleton className="h-5 w-32" />
+                                <Skeleton className="h-4 w-24" />
+                            </div>
+                        </div>
+                        <Skeleton className="h-20 w-full" />
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};
+
+function DetailProductPage({ product, relatedProducts }: any) {
+    const router = useRouter();
+    const [isLoading, setIsLoading] = useState(true);
+    const [isMounted, setIsMounted] = useState(false);
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+        // Simulate loading delay
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 1000); // Optional: simulate network delay
+
+        return () => clearTimeout(timer);
+    }, []);
 
     const queryClient = useQueryClient();
 
-    const { mutate, isLoading } = useMutation({
+    const { mutate, isLoading: isAddingToCart } = useMutation({
         mutationFn: async () => {
             const instance = createInstance();
             const response = await instance.post("/carts", {
-                product_id: product.id,
+                product_id: product?.id,
                 quantity: 1,
             });
 
@@ -143,23 +229,47 @@ function DetailProductPage({ product, relatedProducts }: any) {
         }
     });
 
-
-    const [isExpanded, setIsExpanded] = useState(false);
-    const [isMounted, setIsMounted] = useState(false);
-
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
-
     const handleReadMore = () => {
         setIsExpanded(!isExpanded);
     };
 
     if (!isMounted) return null;
 
+    if (!product && !isLoading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <div className="text-center">
+                    <h1 className="text-2xl font-bold mb-4">Product not found or error occurred</h1>
+                    <Button onClick={() => router.push('/')}>Back to Home</Button>
+                </div>
+            </div>
+        );
+    }
+
+    // Skeleton loading state
+    if (isLoading) {
+        return (
+            <div>
+                <Head>
+                    <title>Loading... - Detail Product</title>
+                </Head>
+                <main>
+                    <Navbar />
+                    <ProductSkeleton />
+                    <ReviewsSkeleton />
+                    <RelatedProductsSkeleton />
+                </main>
+                <footer className="bg-background text-foreground border-t">
+                    <div className="mx-auto py-10">
+                        <p className="text-center text-xs text-foreground">© 2025 Muhamad Zafar Syah, Inc. All rights reserved</p>
+                    </div>
+                </footer>
+            </div>
+        );
+    }
+
     const fullDescription = product.description;
     const shortDescription = fullDescription.slice(0, 500);
-
 
     return (
         <div>
@@ -181,7 +291,7 @@ function DetailProductPage({ product, relatedProducts }: any) {
                             />
                             <div className="grid md:hidden">
                                 <h1 className="font-bold text-xl sm:text-3xl">{product.name}</h1>
-                                <p className="mt-2">Category: {product.category.name}</p>
+                                <p className="mt-2">Category: {product.category}</p>
                                 <div className="md:text-4xl text-2xl font-bold ml-auto">{toRupiah(product.price)}</div>
                             </div>
                         </Card>
@@ -208,9 +318,9 @@ function DetailProductPage({ product, relatedProducts }: any) {
                                     onClick={() => mutate()}
                                     size="lg"
                                     className="w-full"
-                                    disabled={isLoading}
+                                    disabled={isAddingToCart}
                                 >
-                                    {isLoading ? (
+                                    {isAddingToCart ? (
                                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                                     ) : (
                                         <>

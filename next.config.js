@@ -11,7 +11,7 @@ const nextConfig = {
           },
           {
             key: "Access-Control-Allow-Origin",
-            value: "https://api-ecommerce.muhamadzafarsyah.com",
+            value: "https://api-ecommerce.zafarsyah.com",
           },
           {
             key: "Access-Control-Allow-Methods",
@@ -30,7 +30,13 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "api-ecommerce.muhamadzafarsyah.com",
+        hostname: "api-ecommerce.zafarsyah.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "8000",
         pathname: "/**",
       },
     ],

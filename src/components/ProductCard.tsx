@@ -13,7 +13,7 @@ interface ProductCardProps {
     name: string
     price: number
     image: string
-    category: string // Harus string bukan object
+    category: string
     stock: number
     slug: string
     is_in_wishlist: boolean | null
@@ -23,7 +23,7 @@ export function ProductCard({ name, price, image, category, slug, id, is_in_wish
 
     const router = useRouter();
 
-    const { mutate, isLoading } = useMutation({
+    const { mutate, isLoading, variables } = useMutation({
         mutationFn: async () => {
             const instance = createInstance();
             const response = await instance.post("/wishlist", {
@@ -35,6 +35,7 @@ export function ProductCard({ name, price, image, category, slug, id, is_in_wish
         onSuccess: () => {
             // router.push("/user/wishlist");
             toast.success("Product added to wishlist");
+            queryClient.invalidateQueries({ queryKey: ['allProducts'] });
         },
         onError: (error: any) => {
             if (error === "Unauthorized") {
@@ -53,7 +54,7 @@ export function ProductCard({ name, price, image, category, slug, id, is_in_wish
     const queryClient = useQueryClient();
 
 
-    const { mutate: removeFromWishlist, isLoading: isLoadingRemove } = useMutation({
+    const { mutate: removeFromWishlist, isLoading: isLoadingRemove, variables: variablesRemove } = useMutation({
         mutationFn: async () => {
             const instance = createInstance();
             const response = await instance.delete(`/wishlist/${id}`);
