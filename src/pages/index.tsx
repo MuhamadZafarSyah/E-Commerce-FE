@@ -53,7 +53,7 @@ export default function Home() {
             <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8 relative z-20">
               <div className="max-w-xl mx-auto text-center">
                 <h1 className="text-4xl font-bold sm:text-6xl">
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-700  dark:from-green-300 dark:to-white to-foreground "> Sellify <br /> E-Commerce  </span>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-700  dark:from-green-300 dark:to-white to-foreground "> Sellify E-Commerce<br /> Platform</span>
                 </h1>
                 <p className="mt-5 text-base text-foreground sm:text-xl">Effortless transactions and secure payments for your online shopping experience. Shop smarter, pay seamlessly.</p>
 
